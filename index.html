@@ -1,0 +1,25 @@
+<html>
+<head>
+<SCRIPT type="text/javascript">
+function loadCSV3(id, csvfile) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", csvfile, false);
+    xmlHttp.send(null);
+    var NL = String.fromCharCode(10);
+    var lines = xmlHttp.responseText.split(NL);
+    var result = "<table border=1>"; 
+    for (var n = 8; n < lines.length; n++) {
+	var cols = lines[n].split(",");
+	if (n == 9 || cols.length < 3) continue;
+	result += "<tr><td>" + cols[0] + "</td>";
+	for (var k = ~~(cols.length/2)+1; k < cols.length; k++)
+	    result += "<td>" + cols[k] + "</td>";
+	result += "</tr>";
+    }
+    result += "</table>";
+    document.getElementById(id).innerHTML = result;
+}
+</SCRIPT>
+<INPUT onclick="loadCSV('csv');" value="ファイル読み込み" type="button">
+</head>
+<html>
